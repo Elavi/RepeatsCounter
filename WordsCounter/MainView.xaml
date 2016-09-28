@@ -1,0 +1,46 @@
+﻿<Window x:Class="WordsCounter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordsCounter"
+        mc:Ignorable="d"
+        Title="Words counter" Height="500" Width="525" Background="Black">
+    
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Text="Check repeats in the text." Foreground="White" FontSize="30" FontStyle="Italic" Grid.ColumnSpan="3"/>
+        
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Input text" Foreground="White" Margin="0, 5" />
+        <TextBox Grid.Row="2" Grid.Column="1" Width="250" Text="{Binding TextToParse}" TextWrapping="Wrap" AcceptsReturn="True"/>
+        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Content="Check" Width="80" Margin="0, 5" Height="30" Command="{Binding PrepareTextCommand}"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="Repeats list" Foreground="White" Margin="0, 5" />
+        <ListBox Grid.Row="5" Grid.Column="1" Width="250" ItemsSource="{Binding Path=ParsedDictionary}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Key}" />
+                        <TextBlock Text=" - "/>
+                        <TextBlock Text="{Binding Path=Value}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Row="6" Grid.Column="1" Content="Copy" HorizontalAlignment="Right" Width="80" Margin="0, 5" Height="30" Command="{Binding CopyToClipboardCommand}" />
+    </Grid>
+</Window>
